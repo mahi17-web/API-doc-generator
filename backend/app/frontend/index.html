@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>API Doc Generator - Premium Dashboard</title>
+  
+  <!-- Modern Font: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Highlight.js for JSON syntax highlighting -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <!-- Ambient glowing background effects -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="dashboard-wrapper">
+    <!-- Header -->
+    <header class="glass-panel">
+      <div class="logo">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon-bolt"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <h1>APIForge AI <span>Docs</span></h1>
+      </div>
+      <nav>
+        <a href="/docs" target="_blank" class="nav-link">Swagger UI</a>
+        <a href="#" class="nav-link active">Dashboard</a>
+      </nav>
+    </header>
+
+    <main class="grid-layout">
+      <!-- Left Column: Controls and Status -->
+      <div class="left-col">
+        
+        <!-- Generate Panel -->
+        <section class="glass-panel generate-panel">
+          <h2>Generate Documentation</h2>
+          <p>Analyze your backend code using local LLM to generate professional OpenAPI specs & SDKs.</p>
+          
+          <form id="generate-form">
+            <div class="input-group">
+              <label for="file-path">Target File Path</label>
+              <input type="text" id="file-path" name="file_path" value="sample_backend/app.py" required />
+            </div>
+            
+            <button type="submit" id="generate-btn" class="btn-primary">
+              <span id="btn-text">Generate Specs</span>
+              <div id="btn-spinner" class="spinner hidden"></div>
+            </button>
+          </form>
+
+          <div id="status-message" class="status-msg hidden"></div>
+        </section>
+
+        <!-- Stats Panel -->
+        <section class="glass-panel stats-panel">
+          <h2>Generation Status</h2>
+          
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon openapi-icon">O</div>
+              <div class="stat-info">
+                <h3>OpenAPI Spec</h3>
+                <p id="stat-spec" class="status-badge pending">Waiting</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon py-icon">Py</div>
+              <div class="stat-info">
+                <h3>Python SDK</h3>
+                <p id="stat-python" class="status-badge pending">Waiting</p>
+              </div>
+            </div>
+
+            <div class="stat-card">
+              <div class="stat-icon js-icon">JS</div>
+              <div class="stat-info">
+                <h3>JavaScript SDK</h3>
+                <p id="stat-javascript" class="status-badge pending">Waiting</p>
+              </div>
+            </div>
+            
+            <div class="stat-card full-width">
+              <div class="stat-metrics">
+                <div class="metric">
+                  <span class="val" id="metric-routes">-</span>
+                  <span class="label">Routes Detected</span>
+                </div>
+                <div class="divider"></div>
+                <div class="metric">
+                  <span class="val" id="metric-models">-</span>
+                  <span class="label">Models Found</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
+      <!-- Right Column: API Spec Viewer -->
+      <div class="right-col">
+        <section class="glass-panel viewer-panel">
+          <div class="viewer-header">
+            <h2>Generated Specification JSON</h2>
+            <div class="actions">
+              <button class="btn-outline" id="copy-btn">Copy JSON</button>
+              <button class="btn-outline" id="download-btn">Download</button>
+            </div>
+          </div>
+          <div class="code-container">
+            <div class="code-placeholder" id="code-placeholder">
+              Ready to generate.<br/>Click "Generate Specs" to begin.
+            </div>
+            <pre><code class="language-json" id="spec-viewer"></code></pre>
+          </div>
+        </section>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

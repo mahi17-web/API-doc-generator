@@ -1,0 +1,129 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Bookstore API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/books": {
+      "post": {
+        "responses": [
+          {
+            "description": "Create a book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            },
+            "statusCode": 201
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{book_id}": {
+      "delete": {
+        "responses": [
+          {
+            "description": "Delete a book",
+            "statusCode": 204
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Remove a book from the catalog by its ID"
+          }
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "responses": [
+          {
+            "description": "Service health endpoint",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheck"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ListBook": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Book"
+        }
+      },
+      "Book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "in_stock": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "BookCreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "in_stock": {
+            "type": "boolean",
+            "default": true
+          }
+        }
+      },
+      "HealthCheck": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

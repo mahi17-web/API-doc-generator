@@ -1,0 +1,231 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Bookstore API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": ""
+    }
+  ],
+  "paths": {
+    "/books": {
+      "post": {
+        "summary": "Add a new book",
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{book_id}": {
+      "get": {
+        "summary": "Get a single book",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ]
+      },
+      "put": {
+        "summary": "Update a book",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          },
+          "404": {
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "updates",
+            "schema": {
+              "$ref": "#/components/schemas/BookUpdate"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Delete a book",
+        "responses": {
+          "204": {}
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
+          }
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "status"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "in_stock": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "in_stock"
+        ]
+      },
+      "BookCreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "in_stock": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title",
+          "author",
+          "price",
+          "in_stock"
+        ]
+      },
+      "BookUpdate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "author": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "price": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "in_stock": {
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "required": []
+      }
+    }
+  }
+}

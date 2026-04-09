@@ -1,0 +1,125 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Bookstore API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/books": {
+      "post": {
+        "summary": "Create a book",
+        "responses": {
+          "201": {
+            "description": "Add a new book to the catalog.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Book"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BookCreate"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/books/{book_id}": {
+      "delete": {
+        "summary": "Delete a book",
+        "responses": {
+          "204": {
+            "description": "Remove a book from the catalog by its ID."
+          },
+          "404": {
+            "description": "Book not found"
+          }
+        },
+        "parameters": [
+          {
+            "in": "path",
+            "name": "book_id",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ]
+      }
+    },
+    "/health": {
+      "get": {
+        "summary": "Health check",
+        "responses": {
+          "200": {
+            "description": "Service health endpoint.",
+            "content": {
+              "application/json": {
+                "$ref": "#/components/schemas/Health"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Book": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "in_stock": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "author",
+          "price"
+        ]
+      },
+      "BookCreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "author": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "in_stock": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title",
+          "author",
+          "price"
+        ]
+      }
+    }
+  }
+}
