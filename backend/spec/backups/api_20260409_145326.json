@@ -37,9 +37,6 @@
         "responses": {
           "204": {
             "description": "Remove a book from the catalog by its ID."
-          },
-          "404": {
-            "description": "Book not found"
           }
         },
         "parameters": [
@@ -60,7 +57,9 @@
             "description": "Service health endpoint.",
             "content": {
               "application/json": {
-                "$ref": "#/components/schemas/Health"
+                "schema": {
+                  "type": "object"
+                }
               }
             }
           }
@@ -70,12 +69,6 @@
   },
   "components": {
     "schemas": {
-      "ListBook": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Book"
-        }
-      },
       "Book": {
         "type": "object",
         "properties": {
@@ -92,9 +85,17 @@
             "type": "number"
           },
           "in_stock": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
           }
-        }
+        },
+        "required": [
+          "id",
+          "title",
+          "author",
+          "price",
+          "in_stock"
+        ]
       },
       "BookCreate": {
         "type": "object",
@@ -109,16 +110,21 @@
             "type": "number"
           },
           "in_stock": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
           }
-        }
+        },
+        "required": [
+          "title",
+          "author",
+          "price",
+          "in_stock"
+        ]
       },
-      "Health": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
-          }
+      "ListBook": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Book"
         }
       }
     }

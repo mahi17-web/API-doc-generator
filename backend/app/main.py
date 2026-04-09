@@ -95,10 +95,10 @@ async def get_generated_spec():
 
 @app.get("/docs", include_in_schema=False)
 async def custom_swagger_ui_html():
-    """Standard neat Swagger UI."""
+    """Standard neat Swagger UI displaying the GENERATED spec."""
     return get_swagger_ui_html(
-        openapi_url=app.openapi_url,
-        title=app.title + " - Swagger UI",
+        openapi_url="/generated-spec",
+        title="Generated API - Swagger UI",
         oauth2_redirect_url=app.swagger_ui_oauth2_redirect_url,
     )
 

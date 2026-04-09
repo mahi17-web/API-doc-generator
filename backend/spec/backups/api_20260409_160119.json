@@ -46,8 +46,10 @@
           {
             "in": "path",
             "name": "book_id",
-            "required": true,
-            "type": "integer"
+            "schema": {
+              "type": "integer"
+            },
+            "required": true
           }
         ]
       }
@@ -60,7 +62,9 @@
             "description": "Service health endpoint.",
             "content": {
               "application/json": {
-                "$ref": "#/components/schemas/Health"
+                "schema": {
+                  "type": "object"
+                }
               }
             }
           }
@@ -70,12 +74,6 @@
   },
   "components": {
     "schemas": {
-      "ListBook": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Book"
-        }
-      },
       "Book": {
         "type": "object",
         "properties": {
@@ -92,7 +90,8 @@
             "type": "number"
           },
           "in_stock": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
           }
         }
       },
@@ -109,15 +108,8 @@
             "type": "number"
           },
           "in_stock": {
-            "type": "boolean"
-          }
-        }
-      },
-      "Health": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string"
+            "type": "boolean",
+            "default": true
           }
         }
       }

@@ -47,7 +47,9 @@
             "in": "path",
             "name": "book_id",
             "required": true,
-            "type": "integer"
+            "schema": {
+              "type": "integer"
+            }
           }
         ]
       }
@@ -60,7 +62,9 @@
             "description": "Service health endpoint.",
             "content": {
               "application/json": {
-                "$ref": "#/components/schemas/Health"
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
               }
             }
           }

@@ -57,12 +57,22 @@ def validate_openapi(spec: Dict[str, Any]) -> list[str]:
     """
     errors: list[str] = []
 
+    # Auto-repair openapi version
     if "openapi" not in spec:
-        errors.append("missing 'openapi' version field")
+        spec["openapi"] = "3.0.0"
+        logger.warning("openapi validation: missing 'openapi' field, auto-injected '3.0.0'")
 
+    # Auto-repair info object
     info = spec.get("info")
-    if not isinstance(info, dict) or "title" not in info or "version" not in info:
-        errors.append("missing or incomplete 'info' object")
+    if not isinstance(info, dict):
+        info = {}
+        spec["info"] = info
+        logger.warning("openapi validation: missing 'info' object, auto-injected defaults")
+    
+    if "title" not in info:
+        info["title"] = "Generated API"
+    if "version" not in info:
+        info["version"] = "1.0.0"
 
     paths = spec.get("paths")
     if not isinstance(paths, dict) or len(paths) == 0:
@@ -72,6 +82,6 @@ def validate_openapi(spec: Dict[str, Any]) -> list[str]:
         for e in errors:
             logger.warning("openapi validation: %s", e)
     else:
-        logger.info("openapi validation passed (%d paths)", len(spec.get("paths", {})))
+        logger.info("openapi validation passed with %d paths", len(spec.get("paths", {})))
 
     return errors

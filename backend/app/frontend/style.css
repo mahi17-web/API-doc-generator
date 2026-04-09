@@ -138,6 +138,7 @@ nav {
   grid-template-columns: 350px 1fr;
   gap: 2rem;
   flex: 1;
+  min-height: 0;
 }
 
 h2 {
@@ -154,6 +155,7 @@ h2 {
   gap: 2rem;
   overflow-y: auto;
   padding-right: 0.5rem;
+  min-height: 0;
 }
 
 .left-col::-webkit-scrollbar { width: 6px; }
@@ -306,11 +308,19 @@ h2 {
 .divider { width: 1px; height: 30px; background: var(--border-light); }
 
 /* Right Col: Viewer */
+.right-col {
+  min-height: 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
 .viewer-panel {
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
+  min-height: 0;
 }
 
 .viewer-header {
@@ -338,6 +348,7 @@ h2 {
 
 .code-container {
   flex: 1;
+  min-height: 0;
   position: relative;
   background: #0d1117; /* specific to highlight.js theme */
   overflow: auto;
@@ -366,6 +377,21 @@ h2 {
 
 /* Responsiveness */
 @media (max-width: 1024px) {
-  .grid-layout { grid-template-columns: 1fr; }
-  .viewer-panel { min-height: 500px; }
+  body {
+    height: auto;
+    overflow: auto;
+  }
+  .dashboard-wrapper {
+    height: auto;
+  }
+  .grid-layout { 
+    grid-template-columns: 1fr; 
+    min-height: auto;
+  }
+  .left-col {
+    overflow-y: visible;
+  }
+  .viewer-panel { 
+    min-height: 500px; 
+  }
 }

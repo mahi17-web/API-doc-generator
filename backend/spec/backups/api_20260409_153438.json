@@ -27,7 +27,8 @@
                 "$ref": "#/components/schemas/BookCreate"
               }
             }
-          }
+          },
+          "description": "Add a new book to the catalog."
         }
       }
     },
@@ -60,7 +61,9 @@
             "description": "Service health endpoint.",
             "content": {
               "application/json": {
-                "$ref": "#/components/schemas/Health"
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
               }
             }
           }
@@ -70,12 +73,6 @@
   },
   "components": {
     "schemas": {
-      "ListBook": {
-        "type": "array",
-        "items": {
-          "$ref": "#/components/schemas/Book"
-        }
-      },
       "Book": {
         "type": "object",
         "properties": {
@@ -92,9 +89,16 @@
             "type": "number"
           },
           "in_stock": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
           }
-        }
+        },
+        "required": [
+          "id",
+          "title",
+          "author",
+          "price"
+        ]
       },
       "BookCreate": {
         "type": "object",
@@ -109,8 +113,20 @@
             "type": "number"
           },
           "in_stock": {
-            "type": "boolean"
+            "type": "boolean",
+            "default": true
           }
+        },
+        "required": [
+          "title",
+          "author",
+          "price"
+        ]
+      },
+      "ListBook": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Book"
         }
       },
       "Health": {
@@ -119,7 +135,10 @@
           "status": {
             "type": "string"
           }
-        }
+        },
+        "required": [
+          "status"
+        ]
       }
     }
   }
